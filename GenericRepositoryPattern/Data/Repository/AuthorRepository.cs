@@ -17,7 +17,7 @@ namespace GenericRepositoryPattern.Data.Repository
 
         }
 
-        public ActionResult<IEnumerable<Author>> GetAllAuthors()
+        public IEnumerable<Author> GetAllAuthors()
         {
             return _context.Authors;
         }

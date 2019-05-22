@@ -24,6 +24,8 @@ namespace GenericRepositoryPattern.Controllers
 
         [Route("Author")]
         public IActionResult GetAllAuthors()
+
+
         {
            
            
@@ -37,8 +39,18 @@ namespace GenericRepositoryPattern.Controllers
             try
             {
                 var resultAllAuthors = _authorRepository.GetAllAuthors();
+
+                if (!resultAllAuthors.Any())
+                {
+                    return BuildJsonResponse(204, "No Content Found", resultAllAuthors, null);
+                }
                 //return Ok(Roles.ToList());
-                return BuildJsonResponse(200, "Success", resultAllAuthors, null);
+
+                else
+                {
+                    return BuildJsonResponse(200, "Success", resultAllAuthors, null);
+                }
+                
                 //return roleManager.Roles;
             }
             catch (Exception ex)

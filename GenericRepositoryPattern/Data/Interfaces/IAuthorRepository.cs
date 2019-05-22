@@ -9,7 +9,7 @@ namespace GenericRepositoryPattern.Data.Interfaces
 {
     public interface IAuthorRepository : IRepository<Author>
     {
-        ActionResult<IEnumerable<Author>> GetAllAuthors();
+       IEnumerable<Author> GetAllAuthors();
        Task <Author> GetAuthorById(int id);
 
 

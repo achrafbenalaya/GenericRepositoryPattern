@@ -56,6 +56,15 @@ namespace GenericRepositoryPattern.Controllers
                         Errors = errors,
                         Data = data
                     });
+
+                case 204:
+                    return Ok(new
+                    {
+                        Status = responseCode,
+                        Message = message,
+                        Errors = errors,
+                        Data = data
+                    });
                 case 500:
                     var KO = new
                     {
