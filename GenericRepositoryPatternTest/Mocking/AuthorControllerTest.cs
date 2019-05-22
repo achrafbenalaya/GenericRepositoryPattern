@@ -48,8 +48,6 @@ namespace GenericRepositoryPatternTest.Mocking
         public void should_return_Two_author()
         {
             
-
-
             //arrange
 
             List<Author> _existingAuthors = new List<Author>();
@@ -57,11 +55,8 @@ namespace GenericRepositoryPatternTest.Mocking
             var justin2 = new Author { FirstName = "Justin Noon", LastName = "test1", PhoneNumber = "202020" };
             _existingAuthors.Add(justin2);
             _existingAuthors.Add(justin);
-
-
               var authors= new Mock<IAuthorRepository>();
-        
-;            authors.Setup(c => c.GetAllAuthors()).Returns(_existingAuthors);
+             authors.Setup(c => c.GetAllAuthors()).Returns(_existingAuthors);
             //act
             AuthorController home = new AuthorController(authors.Object);
             var result = home.GetAllAuthors().Count();
@@ -71,10 +66,52 @@ namespace GenericRepositoryPatternTest.Mocking
 
 
 
+        }
+
+
+
+        [Test]
+        public void should_return_one_author()
+        {
+
+            //arrange
+
+          
+            Author _existingAuthors = new Author()
+            {
+
+                Idauth = 1,
+                FirstName = "Justin1",
+                LastName = "test1",
+                PhoneNumber = "202020"
+
+            };
+
+
+
+
+            var authors = new Mock<IAuthorRepository>();
+            authors.Setup(c => c.GetAuthorById(1)).ReturnsAsync(_existingAuthors);
+
+            //act
+            AuthorController home = new AuthorController(authors.Object);
+            var result = home.GetAuthorById(1);
+            Console.WriteLine("Justin1" + result.FirstName);
+
+            //assert 
+            Assert.AreEqual("Justin1", result.FirstName);
 
 
 
         }
+
+
+
+
+
+
+
+
 
     }
 }

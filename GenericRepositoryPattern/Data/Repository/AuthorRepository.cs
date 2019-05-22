@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GenericRepositoryPattern.Data.Interfaces;
 using GenericRepositoryPattern.Data.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GenericRepositoryPattern.Data.Repository
 {
@@ -16,9 +17,9 @@ namespace GenericRepositoryPattern.Data.Repository
 
         }
 
-        public IEnumerable<Author> GetAllAuthors()
+        public ActionResult<IEnumerable<Author>> GetAllAuthors()
         {
-            return _context.Authors.ToList();
+            return _context.Authors;
         }
 
         public async Task<Author> GetAuthorById(int id)

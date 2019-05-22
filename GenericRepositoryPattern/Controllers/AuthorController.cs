@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace GenericRepositoryPattern.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class AuthorController : Controller
+    [Produces("application/json")]
+    //[ApiController]
+    public class AuthorController : BaseController
     {
 
         private readonly IAuthorRepository _authorRepository;
@@ -22,25 +23,48 @@ namespace GenericRepositoryPattern.Controllers
         }
 
         [Route("Author")]
-        public  IEnumerable<Author> GetAllAuthors()
+        public IActionResult GetAllAuthors()
         {
-            var authors = _authorRepository.GetAllAuthors();
+           
+           
 
-            return authors;
+
+          //  return BuildJsonResponse(200, "SUCCESS", resultAllAuthors, null);
+
+            List<string> error = new List<string>();
+
+
+            try
+            {
+                var resultAllAuthors = _authorRepository.GetAllAuthors();
+                //return Ok(Roles.ToList());
+                return BuildJsonResponse(200, "Success", resultAllAuthors, null);
+                //return roleManager.Roles;
+            }
+            catch (Exception ex)
+            {
+                error.Add(ex.Message);
+                return BuildJsonResponse(500, "SERVER ERROR", null, error);
+                // return null;
+            }
+
+
+
+
 
         }
 
         [Route("AuthorById/{id}")]
         public  Author GetAuthorById([FromRoute] int id)
         {
-            var author = _authorRepository.GetById(id);
+            var author = _authorRepository.GetAuthorById(id);
 
             if (author == null)
             {    return null;}
 
             else
             {
-                return author;
+                return author.Result;
             }
            
         }
